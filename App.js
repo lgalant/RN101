@@ -5,7 +5,7 @@ import { Images } from '.'
 
 
 function Welcome(props) {
-  return <Text>Hello, {props.name}</Text>;
+  return <Text>Hola, {props.name}</Text>;
 }
 
 
@@ -32,12 +32,14 @@ export default class HelloWorldApp extends Component {
   componentDidMount() {
     this.getMoviesFromApiAsync();
   }
-  
+  //2b23ac0e
+  //http://img.omdbapi.com/?apikey=[yourkey]&
+  //http://www.omdbapi.com/?i=tt3896198&apikey=2b23ac0e
   getMoviesFromApiAsync() {
-    return fetch('https://facebook.github.io/react-native/movies.json')
+    return fetch('http://www.omdbapi.com/?s=back&apikey=2b23ac0e')
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({movies:responseJson.movies})
+        this.setState({movies:responseJson.Search})
       })
       .catch((error) => {
         console.error(error);
@@ -52,8 +54,9 @@ export default class HelloWorldApp extends Component {
         <Welcome name='Amigos!' />
         <Welcome2 name='Amigas!' />
        { this.state.movies.map((movie)=>(
-         <View key={movie.id}>
-          <Text> {movie.title}</Text>
+         <View key={movie.imdbID}>
+          <Text> {movie.Title}</Text>
+          <Image style={{height:50, width:50}} source={{ uri: movie.Poster}} resizeMode={'contain'} />    
           </View>
        ))
       }
